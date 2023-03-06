@@ -1,43 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const TodoList = () => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [tarea, setTarea] = useState([]);
 
-//   const handleCreateTarea = (event) => {
-//     console.log(event.target.value);
-//     setTarea(event.target.value);
-//   };
-
   const handleSubmit = (event) => {
-    if(event.key === 'Enter'){
-        setTarea([...tarea, input])
-        setInput('');
-        
+    if (event.key === "Enter") {
+      let objeto = {
+        id: Math.random(),
+        texto: input,
+      };
+
+      setTarea(tarea.concat(objeto));
+      setInput("");
+      console.log(`enter`);
     }
-  }
+  };
+
 
   return (
     <>
       <div className="container">
         <div className="mb-3">
-            <h1>TODOS</h1>
-            <form>
+          <h1>TODOS</h1>
+          <ul>
             <input
               value={input}
-              onChange={(e) => {
-                setInput(e.target.value)
-                console.log(input)}}
+              onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleSubmit}
               type="text"
               className="text"
               id="create"
               placeholder="Add a Tarea"
             />
-            </form>
-            {tarea.length ? tarea.map((element, i)=>{
-                return <h1 key={i}>{element}</h1>
-            }):null}
+
+            {tarea.length
+              ? tarea.map((element) => {
+                  return <li key={element.id}>{element.texto}</li>;
+                })
+              : null}
+          </ul>
         </div>
       </div>
     </>

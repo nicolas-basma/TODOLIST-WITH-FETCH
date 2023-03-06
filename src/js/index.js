@@ -2,6 +2,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import TodoList from "./component/TodoList.jsx";
+import todoStyles from '../styles/todoStyles.css'
 
 // include your styles into the webpack bundle
 import "../styles/index.css";
