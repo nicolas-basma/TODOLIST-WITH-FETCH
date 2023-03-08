@@ -2,28 +2,39 @@ import React, { useState, useEffect } from "react";
 
 const TodoList = () => {
   const [input, setInput] = useState("");
-  const [tarea, setTarea] = useState([]);
+  const [tareas, setTarea] = useState([]);
+  const [idForDelete, setIdForDelete] = useState([])
 
   const handleSubmit = (event) => {
+    if(!input.trim()) return;
     if (event.key === "Enter") {
       let objeto = {
-        id: Math.random(),
+        id: (Math.random()*1000000).toFixed(3) ,
         texto: input,
       };
 
-      setTarea(tarea.concat(objeto));
+      setTarea(tareas.concat(objeto));
       setInput("");
-      console.log(`enter`);
     }
   };
 
+  useEffect(()=>{
+    if(!idForDelete) return;
+    // console.log(`delete`,idForDelete)
+    let tareasTemporal = tareas.filter((tarea)=>{
+      console.log(idForDelete,tarea.id)
+     return idForDelete !== tarea.id
+    })
+
+    setTarea(tareasTemporal)
+  }, [idForDelete])
 
   return (
     <>
       <div className="container">
-        <div className="mb-3">
+        <div className="mb-3 text-center">
           <h1>TODOS</h1>
-          <ul>
+          <ul className="mx-auto">
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -31,12 +42,12 @@ const TodoList = () => {
               type="text"
               className="text"
               id="create"
-              placeholder="Add a Tarea"
+              placeholder="Add a Task..."
             />
 
-            {tarea.length
-              ? tarea.map((element) => {
-                  return <li key={element.id}>{element.texto}</li>;
+            {tareas.length
+              ? tareas.map((element) => {
+                  return <li key={element.id}>{element.texto} <div className="icono"><i className="fas fa-trash" onClick={()=>setIdForDelete(element.id)}></i></div></li>;
                 })
               : null}
           </ul>
