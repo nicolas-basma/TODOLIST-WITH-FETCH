@@ -4,15 +4,17 @@ const TodoList = () => {
   const [input, setInput] = useState("");
   const [tareas, setTarea] = useState([]);
   const [idForDelete, setIdForDelete] = useState([])
+  const [fetchUrl, setFetchUrl] = useState("https://assets.breatheco.de/apis/fake/todos/user/nicoydani")
+  const [fetchUser, setFetchUser] = useState("nicoydani")
 
 useEffect(()=>{
-  fetch('https://assets.breatheco.de/apis/fake/todos/user/nicoydani')
+  fetch(`${fetchUrl}`)
   .then((res)=> res.json())
   .then((res) => setTarea(res))
-},[]);
+},[fetchUrl]);
 
 useEffect(()=>{
-  fetch('https://assets.breatheco.de/apis/fake/todos/user/nicoydani',{ method: "PUT",
+  fetch(`${fetchUrl}`,{ method: "PUT",
   body: JSON.stringify(tareas),
   headers: {
     "Content-Type": "application/json"
@@ -21,7 +23,9 @@ useEffect(()=>{
   .catch(()=> console.log("uy uy uy"));
   
 },[tareas])
-  useEffect(()=>{
+
+
+useEffect(()=>{
     if(!idForDelete) return;
     let tareasTemporal = tareas.filter((tarea)=>{
       console.log(idForDelete,tarea.id)
@@ -45,11 +49,23 @@ useEffect(()=>{
     }
   };
 
+  const handleChangeUser = () => {
+    let newURL = `https://assets.breatheco.de/apis/fake/todos/user/${fetchUser}`
+    console.log(fetchUser,  newURL)
+    setFetchUrl(newURL)
+  }
 
   return (
     <>
       <div className="container">
         <div className="mb-3 text-center">
+
+          <div className="d-flex flex-direction-row">
+          <input type="text" onChange={event => setFetchUser(event.target.value)} value={fetchUser}/>
+          <button onClick={handleChangeUser}> ABRIR / CARGAR </button>
+          <button> Borrar </button>
+          </div>
+
           <h1>TODOS</h1>
           <ul className="mx-auto">
             <input
