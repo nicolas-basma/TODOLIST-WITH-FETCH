@@ -50,7 +50,14 @@ useEffect(()=>{
     headers: {
       "Content-Type": "application/json"
     }})
-    .then((res) => console.log('new user'))
+    const listaObj = [{label:'4geeks', done:false, id: (Math.random()*1000000).toFixed(3) ,
+    texto: 'ejemplo'}];
+    fetch(`${fetchUrl}`,{ method: "PUT",
+    body: JSON.stringify(listaObj),
+    headers: {
+      "Content-Type": "application/json"
+    }})
+    .then(()=> setTarea(listaObj));
   }
 
 
