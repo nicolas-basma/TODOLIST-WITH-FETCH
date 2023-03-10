@@ -9,11 +9,20 @@ const TodoList = () => {
 
 useEffect(()=>{
   fetch(`${fetchUrl}`)
-  .then((res)=> res.json())
-  .then((res) => setTarea(res))
-},[fetchUrl]);
+  .then((res)=> {
+    if(res.status == 404){
+      throw Error(res.status)
+}
+    return res.json()
+  })
+  .then((res) =>{
+    setTarea(res)})
+    .catch(()=> handleCreateUser())
+  },[fetchUrl]);
+
 
 useEffect(()=>{
+  if(!tareas.length) return;
   fetch(`${fetchUrl}`,{ method: "PUT",
   body: JSON.stringify(tareas),
   headers: {
@@ -22,7 +31,7 @@ useEffect(()=>{
   .then(()=> console.log("All is good"))
   .catch(()=> console.log("uy uy uy"));
   
-},[tareas])
+},[tareas]);
 
 
 useEffect(()=>{
@@ -33,6 +42,18 @@ useEffect(()=>{
     })
     setTarea(tareasTemporal)
   }, [idForDelete]);
+
+
+  const handleCreateUser = ()=>{
+    fetch(`${fetchUrl}`,{ method: "POST",
+    body: JSON.stringify([]),
+    headers: {
+      "Content-Type": "application/json"
+    }})
+    .then((res) => console.log('new user'))
+  }
+
+
 
   const handleSubmit = (event) => {
     if(!input.trim()) return;
@@ -55,6 +76,13 @@ useEffect(()=>{
     setFetchUrl(newURL)
   }
 
+  const handleDeleteUser = ()=>{
+    if(fetchUser === 'nicoydani') return;
+    fetch(`${fetchUrl}`,{method: 'DELETE',
+    headers:{'Content-type':'application/json'}})
+    setFetchUser('nicoydani');
+  }
+
   return (
     <>
       <div className="container">
@@ -63,7 +91,7 @@ useEffect(()=>{
           <div className="d-flex flex-direction-row">
           <input type="text" onChange={event => setFetchUser(event.target.value)} value={fetchUser}/>
           <button onClick={handleChangeUser}> ABRIR / CARGAR </button>
-          <button> Borrar </button>
+          <button onClick={handleDeleteUser}> Borrar </button>
           </div>
 
           <h1>TODOS</h1>
@@ -77,7 +105,6 @@ useEffect(()=>{
               id="create"
               placeholder="Add a Task..."
             />
-
             {tareas.length
               ? tareas.map((element) => {
                   return <li key={element.id}>{element.texto} <div className="icono"><i className="fas fa-trash" onClick={()=>setIdForDelete(element.id)}></i></div></li>;
