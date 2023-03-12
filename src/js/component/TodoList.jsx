@@ -106,17 +106,21 @@ const TodoList = () => {
     });
   };
 
+
+  
+
   return (
     <>
       <div className="container">
         <div className="mb-3 text-center">
-          <div className="d-flex flex-direction-row">
+          <div className="d-flex flex-direction-row filaInput">
             <input
               type="text"
               onChange={(event) => setFetchUser(event.target.value)}
               value={fetchUser}
+              className='inputEncendido'
             />
-            <button onClick={handleChangeUser}> ABRIR / CARGAR </button>
+            <button onClick={handleChangeUser}> <div className="TextoBoton"> ABRIR / CARGAR </div><div className="botonRojo"></div></button>
             <button onClick={handleDeleteUser}> Borrar </button>
           </div>
 
