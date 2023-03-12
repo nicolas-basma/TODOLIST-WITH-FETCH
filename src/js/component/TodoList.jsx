@@ -120,11 +120,12 @@ const TodoList = () => {
               value={fetchUser}
               className='inputEncendido'
             />
-            <button onClick={handleChangeUser}> <div className="TextoBoton"> ABRIR / CARGAR </div><div className="botonRojo"></div></button>
-            <button onClick={handleDeleteUser}> Borrar </button>
+            <button onClick={handleChangeUser}> <div className="TextoBoton"> abrir / cargar </div></button>
+            <button onClick={handleDeleteUser}> borrar </button>
           </div>
 
-          <h1>TODOS</h1>
+
+          <h1 className="stroke">todo list</h1>
           <ul className="mx-auto">
             <input
               value={input}

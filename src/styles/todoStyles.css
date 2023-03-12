@@ -35,7 +35,8 @@ input{
 }
 body{
     background: black;
-    font-family: 'Quicksand', sans-serif;
+    font-family: 'Star Wars', sans-serif;
+    /* font-family: 'Quicksand', sans-serif; */
     color:white;
 }
 input:focus{
@@ -51,7 +52,7 @@ input:focus{
 
 .filaInput button{
     border:none;
-    border-right: #232323 1px solid;
+    border-right: #5e5d5d 4px solid;
     background: #CECECE;
     background: -moz-linear-gradient(top, #CECECE 0%, #808080 50%, #C5C5C5 100%);
     background: -webkit-linear-gradient(top, #CECECE 0%, #808080 50%, #C5C5C5 100%);
@@ -81,21 +82,29 @@ input:focus{
     color: #FFFFFF;
     background: #232323;
 }
-.botonRojo{
-    
-    width:20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color:red;
-    border: solid 1px black;
-    position:relative;
-    bottom:50%;
-    left:50%;
 
+h1{
+    font-family: 'Star Wars', sans-serif;
+    font-size: 5em;
+    animation: grow 3s;
+    color: #f0e7e7;
+    
 }
 
-.TextoBoton{
-    position:relative;
-    top:8px;
-    z-index: 2;
+@keyframes grow {
+    from {
+        font-size: 0;
+    }
+    to{
+        font-size: 5em;
+    }
+}
+
+.stroke {
+    /* -webkit-text-fill-color: rgb(243, 246, 239); */
+    -webkit-text-stroke: 7px gold;
+    }
+
+.filaInput button:nth-child(3){
+    border-radius: 0 10px 10px 0;
 }
