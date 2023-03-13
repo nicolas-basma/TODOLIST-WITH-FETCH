@@ -5,9 +5,9 @@ const TodoList = () => {
   const [tareas, setTarea] = useState([]);
   const [idForDelete, setIdForDelete] = useState([]);
   const [fetchUrl, setFetchUrl] = useState(
-    "https://assets.breatheco.de/apis/fake/todos/user/nicoydani"
+    "https://assets.breatheco.de/apis/fake/todos/user/nico-dani-sandra"
   );
-  const [fetchUser, setFetchUser] = useState("nicoydani");
+  const [fetchUser, setFetchUser] = useState("nico-dani-sandra");
 
   useEffect(() => {
     fetch(`${fetchUrl}`)
@@ -96,13 +96,13 @@ const TodoList = () => {
   };
 
   const handleDeleteUser = () => {
-    if (fetchUser === "nicoydani") return;
+    if (fetchUser === "nicoydaniysandra") return;
     fetch(`${fetchUrl}`, {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
     }).then(()=>{
-      setFetchUrl("https://assets.breatheco.de/apis/fake/todos/user/nicoydani")
-      setFetchUser("nicoydani")
+      setFetchUrl("https://assets.breatheco.de/apis/fake/todos/user/nico-dani-sandra")
+      setFetchUser("nico-dani-sandra")
     });
   };
 
